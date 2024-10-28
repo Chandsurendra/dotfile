@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Directory containing images
+IMAGE_DIR="$HOME/Downloads"  # Change this to your images directory
+
+# Function to set wallpaper
+set_wallpaper() {
+    local img="$1"
+    swww img "$img"
+    echo "Wallpaper set to: $img"
+}
+
+# Use fzf to select an image
+selected_image=$(printf "%s\n" "$IMAGE_DIR"/*.{jpg,jpeg,png,gif} | fzf --preview "kitty +kitten icat {}")
+
+# Check if an image was selected
+if [[ -n "$selected_image" ]]; then
+	kitty --class clipse bash -c "
+    # Set the wallpaper
+    set_wallpaper "$selected_image" 
+
+"
+else
+    echo "No image selected."
+fi

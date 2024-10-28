@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Directory containing wallpapers
+WALLPAPER_DIR="$HOME/Downloads"
+
+# List image files in the directory and show them in WoFi
+SELECTED_IMAGE=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | wofi --dmenu -I --prompt "Select Wallpaper")
+
+# Check if an image was selected
+if [ -n "$SELECTED_IMAGE" ]; then
+    # Set the selected image as the wallpaper
+    swww img "$SELECTED_IMAGE"
+else
+    echo "No wallpaper selected."
+fi

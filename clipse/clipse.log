@@ -1,0 +1,8 @@
+2024/10/24 18:58:05 logger.go:19: ERROR: invalid character 'h' looking for beginning of value
+2024/10/24 18:58:07 logger.go:19: ERROR: invalid character 'h' looking for beginning of value
+2024/10/24 18:58:09 logger.go:19: ERROR: invalid character 'h' looking for beginning of value
+2024/10/24 18:58:22 logger.go:19: ERROR: json: cannot unmarshal string into Go struct field ClipboardHistory.clipboardHistory of type config.ClipboardItem
+2024/10/24 18:58:23 logger.go:19: ERROR: json: cannot unmarshal string into Go struct field ClipboardHistory.clipboardHistory of type config.ClipboardItem
+2024/10/24 18:58:24 logger.go:19: ERROR: json: cannot unmarshal string into Go struct field ClipboardHistory.clipboardHistory of type config.ClipboardItem
+2024/10/24 18:58:25 logger.go:19: ERROR: json: cannot unmarshal string into Go struct field ClipboardHistory.clipboardHistory of type config.ClipboardItem
+2024/10/24 18:58:26 logger.go:19: ERROR: json: cannot unmarshal string into Go struct field ClipboardHistory.clipboardHistory of type config.ClipboardItem

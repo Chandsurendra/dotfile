@@ -1,0 +1,23 @@
+# Set the directory to search in
+search_directory="/home"
+
+# Find the wallpaper file
+wallpaper=$(
+    find "$search_directory" -type f \
+        \( -iname "*.jpg" -o \
+           -iname "*.jpeg" -o \
+           -iname "*.png" -o \
+           -iname "*.gif" -o \
+           -iname "*.bmp" -o \
+           -iname "*.tiff" -o \
+           -iname "*.webp" \) 2>/dev/null | fzf --preview="fzfimg {}"
+)
+
+# Check if a wallpaper was selected
+if [ -n "$wallpaper" ]; then
+    hyprctl hyprpaper preload "$wallpaper"
+    hyprctl hyprpaper wallpaper ,"$wallpaper"
+else
+    echo "No wallpaper selected."
+fi
+

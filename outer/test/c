@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Directory containing wallpapers
+WALLPAPER_DIR="$HOME/Downloads"
+
+# List images and open WoFi
+SELECTED_IMAGE=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | wofi --dmenu --prompt "Select Wallpaper")
+
+# Check if an image was selected
+if [ -n "$SELECTED_IMAGE" ]; then
+    # Open a new Kitty window with the image preview and confirmation
+    kitty --class clipse bash -c "
+        # Display the selected image in Kitty
+        kitty +kitten icat '$SELECTED_IMAGE';
+        
+        # Prompt for confirmation to set wallpaper
+        read -p 'Set this wallpaper? (y/n): ' confirm;
+        
+        # Check confirmation and set wallpaper
+        if [[ \$confirm == 'y' ]]; then
+            swww img '$SELECTED_IMAGE';
+            echo 'Wallpaper set!'
+        else
+            echo 'Wallpaper selection cancelled.'
+        fi
+
+        # Clear the image preview from Kitty
+        kitty +kitten icat --clear
+    "
+else
+    echo "No wallpaper selected."
+fi

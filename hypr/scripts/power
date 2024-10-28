@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Define the options for the power menu
+options=" Poweroff\n Reboot\n Lock\n Logout"
+
+# Use Wofi to display the menu and capture the selected option
+selected=$(echo -e "$options" | wofi --dmenu --style=$HOME/.config/wofi/pow.css -c $HOME/.config/wofi/pow --width 300 --height 150  --prompt="Power Menu")
+
+case "$selected" in
+    " Poweroff")
+        systemctl poweroff
+        ;;
+    " Reboot")
+        systemctl reboot
+        ;;
+    " Lock")
+        # Lock the screen (you can replace swaylock with your preferred lock screen)
+        hyprlock
+        ;;
+    " Logout")
+        # For Hyprland
+         hyprctl dispatch exit
+        # For Sway
+        # swaymsg exit
+        ;;
+    *)
+        exit 1
+        ;;
+esac

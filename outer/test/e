@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Check if necessary tools are installed
+if ! command -v fzf &> /dev/null || ! command -v sxiv &> /dev/null; then
+    echo "This script requires 'fzf' and 'sxiv' to be installed."
+    exit 1
+fi
+
+# Function to load images from a directory
+load_images() {
+    # Change to the directory containing images
+    cd "$1" || exit
+
+    # Find image files (you can adjust the file types)
+    find . -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" \)
+}
+
+# Get directory from user input
+read -p "Enter the directory containing images: " dir
+#$dir = /home/react/Downloads
+# Load images and use fzf for selection
+image=$(load_images "$dir" | fzf --preview 'sxiv -r {}' --preview-window=up:50%)
+
+# Check if an image was selected
+if [[ -n "$image" ]]; then
+    # Display the selected image
+    sxiv "$dir/$image"
+else
+    echo "No image selected."
+fi

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Define directories where images are located
+directories=("/home/react/.config/hypr/background" "/home/react/test")
+
+# Use fzf to select an image with full path as output
+selected_image=$(find "${directories[@]}" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' \) | fzf --preview 'fzfimg {}')
+
+
+ #Write additional info along with the selected image path to a file
+{
+    echo "#Wallpaper set on: $(date)"
+    echo "#Selected image: $selected_image"
+    echo "#Set using Hyprpaper"
+    echo "preload = $selected_image"
+    echo "wallpaper = LVDS-1, contain:$selected_image"
+    echo "ipc = off"
+} > ~/.config/hypr/hyprpaper.conf
+
+# Check if hyprpaper is running
+if pgrep -x "hyprpaper" > /dev/null; then
+    # If running, kill it
+    echo "hyprpaper running" &
+    pkill -x "hyprpaper"
+    #reopen
+    hyprpaper & >>/dev/null &
+else
+# Start hyprpaper with the selected image
+echo "hyprpaper not running" &
+hyprpaper & >>/dev/null & 
+fi

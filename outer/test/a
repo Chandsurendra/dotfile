@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Directory containing wallpapers
+WALLPAPER_DIR="$HOME/Downloads"
+
+# Select a random image
+WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | shuf -n 1)
+
+# Set the selected image as the wallpaper
+swww img "$WALLPAPER"
